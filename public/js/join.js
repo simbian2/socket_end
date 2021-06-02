@@ -28,7 +28,7 @@ async function submitBtnFn(){
     const userimage = document.querySelector('#input_image').value
     const useremail = document.querySelector('.useremail').value
 
-    if(userpw=!userpwCheck){
+    if(userpw != userpwCheck){
         alert('비밀번호가 일치하지 않습니다')
         return
     }

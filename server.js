@@ -7,7 +7,12 @@ const nunjucks = require('nunjucks')
 const bodyParser = require('body-parser')
 const auth = require('./middleware/auth')
 const {sequelize, User} = require('./models')
-
+// npm install socket.io
+const socket = require('socket.io');
+const http = require('http');
+const server = http.createServer(app);
+const io = socket(server);
+// app.listen -> server.listen 변경해주세요.
 
 app.set('view engine', 'html')
 
@@ -93,6 +98,39 @@ app.post('/auth/local/login',async (req,res)=>{
 })
 
 
-app.listen(3000,()=>{
+app.get('/chat',auth,(req,res)=>{
+    res.render('chat')
+})
+
+let id;
+
+io.sockets.on('connection',socket=>{
+
+    let cookieString = socket.handshake.headers.cookie;
+
+    if(cookieString != undefined){
+        let cookieArr = cookieString.split(';');
+        cookieArr.forEach(v=>{
+            let [name,value] = v.split('=');
+            if(name.trim() == 'AccessToken'){
+                let jwt = value.split('.');
+                let payload = Buffer.from(jwt[1],'base64').toString();
+                let {userid} = JSON.parse(payload);
+                id = userid;
+            }
+        })
+    }
+
+    console.log(id)
+
+    socket.on('send',data=>{
+        console.log(data);
+        socket.broadcast.emit('msg',data)
+    })
+})
+
+
+
+server.listen(3000,()=>{
     console.log('server start port: 3000');
 })
