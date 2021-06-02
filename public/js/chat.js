@@ -47,6 +47,7 @@ async function getChatRoom(){
 function socketChat(){
     socket.on('connect',()=>{});
 
+    //socket에서 msg
     socket.on('msg',data=>{
         chatBtn.dataset.value = parseInt(chatBtn.dataset.value)+1;
         //dataset 
@@ -60,6 +61,7 @@ function socketChat(){
 
 
 function send(){
+    //그냥 자기가 입력한 내용을 가지고 온 거 같다.
     const msg = document.querySelector('#msg');
     console.log(msg.value);
     socket.emit('send',msg.value);

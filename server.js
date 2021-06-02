@@ -122,9 +122,10 @@ io.sockets.on('connection',socket=>{
     }
 
     console.log(id)
-
+    //socket에서 send
     socket.on('send',data=>{
         console.log(data);
+        //socket에서 msg
         socket.broadcast.emit('msg',data)
     })
 })

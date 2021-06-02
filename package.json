@@ -23,5 +23,13 @@
     "socket.io": "^4.1.2"
   },
   "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ingoo-code/jwt_chat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ingoo-code/jwt_chat/issues"
+  },
+  "homepage": "https://github.com/ingoo-code/jwt_chat#readme",
   "description": ""
 }

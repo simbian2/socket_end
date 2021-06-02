@@ -1,7 +1,8 @@
 #chat{
     width:400px;
     height:600px;
-    background:wheat;
+    background:paleturquoise;
+    overflow:scroll
 }
 
 #chat > div > span{
@@ -15,12 +16,12 @@
     padding:5px;
 }
 
-#chat > div > span.my{
+#chat > div > span.you{
     float:left;
     background:yellow;
 }
 
-#chat > div > span.you{
+#chat > div > span.my{
     float:right;
     background:white;
 }
