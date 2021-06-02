@@ -13,6 +13,19 @@ const http = require('http');
 const server = http.createServer(app);
 const io = socket(server);
 // app.listen -> server.listen 변경해주세요.
+const multer = require('multer')
+const path = require('path')
+const upload = multer({
+    storage:multer.diskStorage({
+        destination:function(req, file, callback){
+            callback(null, 'uploads/')
+        },
+        filename:function(req,file,callback){
+            callback(null, new Date().valueOf() + path.extname(file.originalname))
+        }
+    }),
+
+})
 
 app.set('view engine', 'html')
 
@@ -39,8 +52,16 @@ app.get('/', (req,res)=>{
     res.render('index')
 })
 
-app.get('/user/info',auth, (req,res)=>{
-    res.send(`Hello ${req.userid}`)
+app.get('/user/info',auth, async (req,res)=>{
+    let userid = req.userid
+    
+    result = await User.findOne({
+        where:{userid}
+    })
+    res.send(`${req.userid}+<img src = "${result.userimage}">`)
+
+    console.log(result.userimage)
+    console.log(`${req.userid}+${result.userimage}`)
 })
 
 app.get('/user/join',(req,res)=>{
@@ -118,7 +139,7 @@ io.sockets.on('connection',socket=>{
                 let {userid} = JSON.parse(payload);
                 id = userid;
             }
-        })
+        })   
     }
 
     console.log(id)

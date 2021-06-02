@@ -25,6 +25,7 @@ chatBtn.addEventListener('click', ()=>{
     }
 })
 
+//
 async function getChatRoom(){
     let url = 'http://localhost:3000/chat'
     let options = {method:'GET'}
@@ -45,13 +46,16 @@ async function getChatRoom(){
 }
 
 function socketChat(){
-    socket.on('connect',()=>{});
+    socket.on('connect',(data)=>{
+        console.log(data)
+        addCard(data,'you')
+    });
 
     //socket에서 msg
     socket.on('msg',data=>{
         chatBtn.dataset.value = parseInt(chatBtn.dataset.value)+1;
         //dataset 
-        if(flag==false){
+        if(flag == false){
             //작업
             chatBtn.innerHTML = `채팅<span style="color:red; padding:2px;">${chatBtn.dataset.value}</span>`
         }
@@ -59,14 +63,27 @@ function socketChat(){
     })
 }
 
-
-function send(){
+async function send(){
     //그냥 자기가 입력한 내용을 가지고 온 거 같다.
     const msg = document.querySelector('#msg');
     console.log(msg.value);
     socket.emit('send',msg.value);
+    
+    let options = {
+        method:'GET',
+    }
+
+    let response = await fetch('http://localhost:3000/user/info',options)
+    let text = await response.text()
+    console.log(text)
+   
+    socket.emit('send', text.split("+")[0]);
+    socket.emit('send', text.split("+")[1]);
+    addCard(text.split("+")[0],'my')
+    addCard(text.split("+")[1],'my')
     addCard(msg.value,'my')
 }
+
             
 function addCard(text,type){
     const div = document.createElement('div');
