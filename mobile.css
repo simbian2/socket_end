@@ -1,0 +1,30 @@
+@media screen and (max-width: 769px) 
+{
+
+    .wrap{
+        width:100%;
+    }
+    .w1200{
+        width:800px;
+        margin:0 auto;
+    }
+    
+    .left{
+        width:400px;
+        background: red;
+        height:30px;
+        display: inline-block;
+    }
+    
+    .middle{
+        display: none;
+    }
+    .right{
+        width:400px;
+        background: green;
+        height:30px;
+        float: right;
+        display: inline-block;
+    }
+
+}
