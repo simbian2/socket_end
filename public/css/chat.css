@@ -2,7 +2,7 @@
     width:400px;
     height:600px;
     background:paleturquoise;
-    overflow:scroll
+    overflow:scroll;
 }
 
 #chat > div > span{
@@ -25,7 +25,9 @@
     float:right;
     background:white;
 }
-
+#chat > div > span.my2{
+    float:right;
+}
 #chatInputArea{
     width:400px;
     padding:5px 7px;

@@ -48,7 +48,6 @@ async function getChatRoom(){
 function socketChat(){
     socket.on('connect',(data)=>{
         console.log(data)
-        addCard(data,'you')
     });
 
     //socket에서 msg
@@ -78,9 +77,7 @@ async function send(){
     console.log(text)
    
     socket.emit('send', text.split("+")[0]);
-    socket.emit('send', text.split("+")[1]);
-    addCard(text.split("+")[0],'my')
-    addCard(text.split("+")[1],'my')
+    addCard2(text.split("+")[0],'my2')
     addCard(msg.value,'my')
 }
 
@@ -90,12 +87,22 @@ function addCard(text,type){
     const span = document.createElement('span');
     const chat = document.querySelector('#chat');
 
-    span.innerHTML = text;
+    span.innerHTML = `${text}<br>`;
     span.classList.add(type);
     div.appendChild(span);
     chat.appendChild(div);
 }
 
+function addCard2(text,type){
+    const div = document.createElement('div');
+    const span = document.createElement('span');
+    const chat = document.querySelector('#chat');
+
+    span.innerHTML = `${text}<br>`;
+    span.classList.add(type);
+    div.appendChild(span);
+    chat.appendChild(div);
+}
 function isJson(str){
     try{
         let json = JSON.parse(str);
