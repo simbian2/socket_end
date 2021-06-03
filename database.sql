@@ -52,6 +52,8 @@ create table skill_item(
     name varchar(50) NOT NULL,
     type varchar(50) NOT NULL
 )character set utf8 collate utf8_general_ci;
+
+
 -- as는 테이블의 필드값이다
 -- select는 새로운 테이블을 만들어서 보여주는 거지 조회하는 것이 아니다
 -- 두 테이블을 합치는 것
